@@ -58,7 +58,7 @@ class RaceContext(DomainModel):
         return self
 
     @property
-    def laps_remaing(self) -> int:
+    def laps_remaining(self) -> int:
         return self.total_laps - self.lap
 
 

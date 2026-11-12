@@ -16,7 +16,7 @@ def make_context(**overrides: object) -> RaceContext:
 
 
 def test_laps_remaining_counts_down_to_the_flag() -> None:
-    assert make_context().laps_remaing == 27
+    assert make_context().laps_remaining == 27
 
 
 def test_lap_cannot_exceed_race_distance() -> None:
@@ -34,4 +34,4 @@ def test_radio_message_is_immutable() -> None:
     message = RadioMessage(driver="NOR", text="Tyres are gone", context=make_context())
 
     with pytest.raises(ValidationError):
-        message.text = "All good"  # pyright: ignore[reportAttributeAccessissue]
+        message.text = "All good"
