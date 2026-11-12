@@ -1,10 +1,17 @@
 [project]
 name = "car-radio"
 version = "0.1.0"
-description = "Starter template for modern Python projects"
+description = "F1 team radio triage powered by Jev typed decisions"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "fastapi>=0.162.5",
+    "pydantic-settings>=2.16.2",
+    "sqlalchemy[asyncio]>=2.1.8",
+    "typesafe-sdk==0.7.5",
+    "uvicorn[standard]>=0.54.0",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -15,10 +22,12 @@ packages = ["src/car_radio"]
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "pip-audit>=2.10.0",
     "pre-commit>=4.0.0",
     "pyright>=1.1.390",
     "pytest>=8.4.0",
+    "pytest-asyncio>=1.4.1",
     "ruff>=0.15.0",
 ]
 
@@ -51,3 +60,4 @@ line-ending = "auto"
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-q"
+asyncio_mode = "auto"
