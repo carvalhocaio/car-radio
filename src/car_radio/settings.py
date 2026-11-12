@@ -5,6 +5,8 @@ from typing import Self
 from pydantic import BaseModel, Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from car_radio.domain.pit_wall import BoxCutoffs, EscalationCutoffs
+
 OPENROUTER_BASE_URL = "https://openrouter.ai/api"
 
 
@@ -37,17 +39,6 @@ class ClassifierSettings(BaseModel):
         return None
 
 
-class BoxCutoffs(BaseModel):
-    confirm: float = Field(default=0.8, ge=0, le=1)
-    reject: float = Field(default=0.2, ge=0, le=1)
-
-    @model_validator(mode="after")
-    def _reject_below_confirm(self) -> Self:
-        if self.reject >= self.confirm:
-            raise ValueError("reject cutoff must be lower than confirm cutoff")
-        return self
-
-
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_prefix="CAR_RADIO_",
@@ -58,6 +49,7 @@ class Settings(BaseSettings):
 
     classifier: ClassifierSettings
     box_cutoffs: BoxCutoffs = BoxCutoffs()
+    escalation_cutoffs: EscalationCutoffs = EscalationCutoffs()
     database_url: str = "sqlite+aiosqlite:///./car_radio.sqlite3"
     replay_concurrency: int = Field(default=8, ge=1)
 
